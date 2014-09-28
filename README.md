@@ -2,8 +2,8 @@
 This is a portable web app environment (nginx+uwsgi+flask) built with [docker](https://www.docker.com).
 
 ## Prerequisites
-* Download & install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-* Download & install [boot2docker](http://boot2docker.io/)
+* Download & install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) ( [Baidu Pan](http://pan.baidu.com/s/1ntJVGfv) )
+* Download & install [boot2docker](http://boot2docker.io/) ( [Baidu Pan](http://pan.baidu.com/s/1kTvDpgN) )
 
 ## Setup Instruction
 For Linux/Mac users, there're some simple script written by me. For windows users, however, you may imitate the way the shell scripts do, where the syntax could be a little bit different.
