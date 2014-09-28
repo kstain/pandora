@@ -20,15 +20,15 @@ Look into `build.sh`. You may modify `username` and `image` as you like. Then ru
 ### Setup Ports
 Open VirtualBox. Select the vm `boot2docker-vm` (remember to install boot2docker as is instructed at very beginning) --> settings.
 
-![vbox-settings](image/vbox-settings.png =190x)
+<img src="image/vbox-settings.png" width=190/>
 
 Network --> Port Forwarding
 
-![settings-network](image/settings-network.png =260x)
+<img src="image/settings-network.png" width=260/>
 
 Add these two ports. You may change change host port if there's any conflict.
 
-![ports](image/ports.png =600x)
+<img src="image/ports.png" width=600/>
 
 ### Run Server
 I wrote two convenient scripts: `serve.sh` and `explore.sh` to run the image.
