@@ -26,7 +26,7 @@ Network --> Port Forwarding
 
 <img src="image/settings-network.png" width=260/>
 
-Add these two ports. You may change change host port if there's any conflict.
+Add these two ports. You may change change the host ports if there's any conflict.
 
 <img src="image/ports.png" width=600/>
 
@@ -43,7 +43,7 @@ ___Before running the script___, please clone `sphinx` to local, and modify `sph
 
 If not, please refer to [this](https://medium.com/boot2docker-lightweight-linux-for-docker/boot2docker-together-with-virtualbox-guest-additions-da1e3ab2465c) site.
 
-___NOTE: Any thing you do in the container will NOT be saved automatically considering sync of environment among all group members.___ If you must do some customization, remember to commit it using [this](http://docs.docker.com/reference/commandline/cli/#commit)
+___NOTE: Anything you do in the container will NOT be saved automatically considering sync of environment among all group members.___ If you must do some customization, remember to commit it using [this](http://docs.docker.com/reference/commandline/cli/#commit)
 
 ```
 [docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]]
