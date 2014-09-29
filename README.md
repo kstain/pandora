@@ -14,7 +14,8 @@ ___You don't have to switch to Linux obligatorily. Just stay in the platform whi
 Look into `build.sh`. You may modify `username` and `image` as you like. Then run it:
 
 ```
-./build.sh
+vi build.sh # Modify stuff at build.sh
+./build.sh # Build the image. This may take long.
 ```
 
 ### Setup Ports
@@ -35,27 +36,45 @@ Mount root of your `sphinx` as shared folder. It is recommended just use the sup
 
 <img src="image/shared-folder.png" width=600/>
 
-### Run Server
+### Setup Helper Scripts
 I wrote two convenient scripts: `serve.sh` and `explore.sh` to run the image.
 
 * `serve.sh` will run a web server container, which maps the ports out so that you can test the newly written python code. Reminder: `Ctrl-C` and re-run `serve.sh` if you change any python code.
 * `explore.sh` will take you into the container. Note this container is different than the container above. Web serviced is __NOT__ started in this container. You may do any experiment in it.
 
-___Before running the script___, please clone `sphinx` to local, and modify `sphinx_root` in `serve.sh` and `explore.sh`, and __They must be in ABSOLUTE path__.
+___Before running the scripts___, please clone `sphinx` to local, and modify `sphinx_root` in `serve.sh` and `explore.sh`, and __They must be in ABSOLUTE path__.
+
+```
+git clone git@github.com:BigLeg/sphinx.git ..
+
+vi serve.sh # Modify stuff at serve.sh
+vi explore.sh # Modify stuff at explore.sh
+```
 
 ___NOTE: Anything you do in the container will NOT be saved automatically considering sync of environment among all group members.___ If you must do some customization, remember to commit it using [this](http://docs.docker.com/reference/commandline/cli/#commit)
 
 ```
-[docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]]
+docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
 ```
 
 ### Check Mounting
 `sphinx` is mounted to container when running the above scripts. Yet it could fail because boot2docker doesn't support shared folder very well. Run `explore.sh` and check if `sphinx` is mounted as `/opt/sites/sphinx`.
 
+```
+-->./explore.sh
+########## Here in the container ##########
+-->/opt/sites/sphinx
+Is a directory
+```
+
 If not, please refer to [this](https://medium.com/boot2docker-lightweight-linux-for-docker/boot2docker-together-with-virtualbox-guest-additions-da1e3ab2465c) blog.
 
 ## Test
 Run the server by `serve.sh`, open your browser, and go to http://localhost:9090/ping . If you see "pong", everything is done!
+
+```
+./serve.sh
+```
 
 <img src="image/ping-pong.png" width=270/>
 
