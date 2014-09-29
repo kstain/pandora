@@ -3,19 +3,82 @@ This is a portable web app environment (nginx+uwsgi+flask) built with [docker](h
 
 ## Prerequisites
 * Download & install VirtualBox ( [Official](https://www.virtualbox.org/wiki/Downloads) &nbsp; [Baidu Pan](http://pan.baidu.com/s/1ntJVGfv) )
-* Download & install boot2docker ( [Official](http://boot2docker.io/)  &nbsp; [Baidu Pan](http://pan.baidu.com/s/1kTvDpgN) )
+* Download & install & run boot2docker ( [Official](http://boot2docker.io/)  &nbsp; [Baidu Pan](http://pan.baidu.com/s/1kTvDpgN) )
 
 ## Setup Instruction
-For Linux/Mac users, there're some simple scripts written by me. For Windows users, however, you may imitate the way the shell scripts do, where the syntax could be a little bit different.
+For Linux/Mac users, there're some simple scripts written by me; you may simply run those scripts on Linux/Mac. For Windows users, however, you may run those shell scripts at boot2docker.
 
-___You don't have to switch to Linux obligatorily. Just stay in the platform which you are comfortable with, where you're equipped with your familiar IDE or some other tools. That's also one of the benefits of using `docker`.___ So as to the helper scripts, they can be simply rewritten in the syntax of `.bat`.
+___You don't have to switch to Linux obligatorily. Just stay in the platform which you are comfortable with, where you're equipped with your familiar IDE or some other tools. That's also one of the benefits of using `docker`.___
+
+### Clone Repositories
+
+```
+cd /path/to/your/workplace
+git clone git@github.com:BigLeg/pandora.git
+git clone git@github.com:BigLeg/sphinx.git
+```
+
+### Setup Shared Folder
+Mount the root of your workplace, which contains `pandora` and `sphinx` (you will clone sphinx soon) as shared folder.
+
+#### Replace boot2docker.iso with VirtualBox Guest Additions Built In
+The issue is addressed in [this](https://medium.com/boot2docker-lightweight-linux-for-docker/boot2docker-together-with-virtualbox-guest-additions-da1e3ab2465c) blog. If you're so lazy to read it, just follow the instructions bellow. First, download it ( [Official](http://static.dockerfiles.io/boot2docker-v1.2.0-virtualbox-guest-additions-v4.3.14.iso) &nbsp; [Baidu Pan](http://pan.baidu.com/s/1kTvDpgN) ). Path to original `boot2docker.iso` differs in Mac and Windows.
+
+__For Mac users__:
+
+```
+mv ~/.boot2docker/boot2docker.iso ~/.boot2docker/boot2docker.ios.old
+mv /path/to/newly/downloaded/boot2docker.iso ~/.boot2docker/boot2docker.iso
+```
+
+__For Windows users__:
+
+```
+@kstain
+```
+
+#### Add Shared Folder
+Add a machine named `home` (It's important, otherwise you need to manually mount it at boot2docker), whose path points to your workplace. Remember to check "Make Permanent" before click "OK".
+
+<img src="image/shared-folder.png" width=600/>
+
+#### Check mounting
+
+__For Mac users__:
+
+```
+boot2docker ssh
+/Users
+```
+If it responses "Is a directory", it's success.
+
+__For Windows users__:
+
+```
+@kstain
+```
 
 ### Build Image
-Look into `build.sh`. You may modify `username` and `image` as you like. Then run it:
+Look into `build.sh`. You may modify `username` and `image` as you like.
 
 ```
 vi build.sh # Modify stuff at build.sh
-./build.sh # Build the image. This may take long.
+```
+
+Then build it. This will take a long time, please be patient.
+
+__For Mac users__:
+
+You may either run `build.sh` at local or at boot2docker.
+
+```
+./build
+```
+
+__For Windows users__:
+
+```
+@kstain
 ```
 
 ### Setup Ports
@@ -31,43 +94,43 @@ Add these two ports. You may change change the host ports if there's any conflic
 
 <img src="image/ports.png" width=600/>
 
-### Setup Shared Folder
-Mount root of your `sphinx` as shared folder. It is recommended just use the super root `/Users` lazily, rather than `/path/to/sphinx`, as is shown below. The latter one doesn't work for me. Don't know why.
-
-<img src="image/shared-folder.png" width=600/>
-
 ### Setup Helper Scripts
-I wrote two convenient scripts: `serve.sh` and `explore.sh` to run the image.
+I've written two convenient scripts: `serve.sh` and `explore.sh` to run the image.
 
 * `serve.sh` will run a web server container, which maps the ports out so that you can test the newly written python code. Reminder: `Ctrl-C` and re-run `serve.sh` if you change any python code.
 * `explore.sh` will take you into the container. Note this container is different than the container above. Web serviced is __NOT__ started in this container. You may do any experiment in it.
 
-___Before running the scripts___, please clone `sphinx` to local, and modify `sphinx_root` in `serve.sh` and `explore.sh`, and __They must be in ABSOLUTE path__.
+___Before running the scripts___, modify `sphinx_root` at `serve.sh` and `explore.sh`, and __They must be in ABSOLUTE path__.
 
 ```
-git clone git@github.com:BigLeg/sphinx.git ..
-
 vi serve.sh # Modify stuff at serve.sh
 vi explore.sh # Modify stuff at explore.sh
 ```
 
-___NOTE: Anything you do in the container will NOT be saved automatically considering sync of environment among all group members.___ If you must do some customization, remember to commit it using [this](http://docs.docker.com/reference/commandline/cli/#commit)
+### Explore Pandora
+Now you may explore pandora. Mac users may either run at local or at boot2docker; Windows users must run inside boot2docker;
+
+```
+./explore.sh
+```
+
+Now you get into the container, with an instance of pandora loaded. ___NOTE: Anything you do to the pandora instance in the container will NOT affect the pandora image built by Dockerfile. This design is intended for sync of environment among all the group members.___ If you must do some customization, remember to commit it using [this](http://docs.docker.com/reference/commandline/cli/#commit)
 
 ```
 docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
 ```
 
-### Check Mounting
-`sphinx` is mounted to container when running the above scripts. Yet it could fail because boot2docker doesn't support shared folder very well. Run `explore.sh` and check if `sphinx` is mounted as `/opt/sites/sphinx`.
+#### Check Mounting Again
+`sphinx` is intended to be mounted into the container after running `explore.sh`. As is done above, we checked mounting at boot2docker, yet at this time, we should check `sphinx` be successfully mounted to the container from boot2docker.
 
 ```
--->./explore.sh
-########## Here in the container ##########
--->/opt/sites/sphinx
-Is a directory
+# Make sure you have run ./explore.sh and now you're in the container
+/opt/sites/sphinx
 ```
 
-If not, please refer to [this](https://medium.com/boot2docker-lightweight-linux-for-docker/boot2docker-together-with-virtualbox-guest-additions-da1e3ab2465c) blog.
+If you receive "Is a directory", then it's success.
+
+If not, please go back and check everything again, carefully.
 
 ## Test
 Run the server by `serve.sh`, open your browser, and go to http://localhost:9090/ping . If you see "pong", everything is done!
