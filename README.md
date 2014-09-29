@@ -42,7 +42,7 @@ Add a machine named `home` (It's important, otherwise you need to manually mount
 
 <img src="image/shared-folder.png" width=600/>
 
-#### Check mounting
+#### Check Mounting
 
 __For Mac users__:
 
@@ -50,7 +50,7 @@ __For Mac users__:
 boot2docker ssh
 /Users
 ```
-If it responses "Is a directory", it's success.
+If it responses "Is a directory", it's success. ___NOTE: For whatever workplace you mounted as `home`, it would mount on boot2docker as `/Users`___
 
 __For Windows users__:
 
