@@ -33,9 +33,9 @@ mv /path/to/newly/downloaded/boot2docker.iso ~/.boot2docker/boot2docker.iso
 
 __For Windows users__:
 
-```
-@kstain
-```
+Download the patched boot2docker image [here](http://pan.baidu.com/s/12H8kA)!
+
+Go to install dir and replace the old boot2docker.iso with the patched one. Just copyNpaste!
 
 #### Add Shared Folder
 Add a machine named `home` (It's important, otherwise you need to manually mount it at boot2docker), whose path points to your workplace. Remember to check "Make Permanent" before click "OK".
@@ -54,9 +54,10 @@ If it responses "Is a directory", it's success. ___NOTE: For whatever workplace 
 
 __For Windows users__:
 
-```
-@kstain
-```
+Use putty, Xshell whatever and connect to 127.0.0.1 on port 2022.
+
+If the auto-mount is successful, you will see User folder in root dir, i.e. /Users, mounted. ___NOTE: For whatever workplace you mounted as `home`, it would mount on boot2docker as `/Users`___
+
 
 ### Build Image
 Look into `build.sh`. You may modify `username` and `image` as you like.
@@ -77,8 +78,10 @@ You may either run `build.sh` at local or at boot2docker.
 
 __For Windows users__:
 
+Run 'build.sh' on boot2docker side. 
+
 ```
-@kstain
+./build.sh
 ```
 
 ### Setup Ports
