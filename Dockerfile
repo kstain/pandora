@@ -25,6 +25,10 @@ RUN pip install flask
 # install supervisor
 RUN pip install supervisor
 
+# install flask-sqlalchemy
+RUN pip install sqlalchemy 
+RUN pip install flask-sqlalchemy
+
 # install other softwares for convenience
 # you may customize here as you like
 RUN apt-get install -fy vim curl tmux ipython

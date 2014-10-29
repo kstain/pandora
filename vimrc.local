@@ -8,9 +8,12 @@ set nocp 	" no compatible
 set sc 		" smart case
 set ts=4	" tab size
 set si		" smart indent
+set sw=4    	" shift width
 
 autocmd InsertLeave * se nocul
 autocmd InsertEnter * se cul
+
+autocmd filetype python setlocal et sta sw=4 sts=4
 
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
