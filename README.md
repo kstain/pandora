@@ -136,7 +136,7 @@ If you receive "Is a directory", then it's success.
 If not, please go back and check everything again, carefully.
 
 ## Test
-Run the server by `serve.sh`, open your browser, and go to http://localhost:9090/ping . If you see "pong", everything is done!
+Run the server by `serve.sh`, open your browser, and go to http://localhost:9090/test/ping . If you see "pong", everything is done!
 
 ```
 ./serve.sh
