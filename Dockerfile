@@ -46,6 +46,7 @@ RUN ln -s /etc/nginx/sites-available/sphinx.conf /etc/nginx/sites-enabled/sphinx
 
 # config uwsgi
 COPY ./uwsgi-sphinx.ini /etc/uwsgi/sphinx.ini
+RUN touch /var/log/sphinx.log
 
 # config supervisor
 COPY ./supervisord.conf /etc/supervisord.conf
