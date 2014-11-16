@@ -3,6 +3,8 @@ MAINTAINER rocky<longqicai@gmail.com>
 
 ################# install #################
 
+ENV    DEBIAN_FRONTEND noninteractive
+
 COPY ./sources.list /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install -fy build-essential python-dev python-pip
@@ -13,30 +15,27 @@ RUN add-apt-repository -y ppa:nginx/stable
 RUN apt-get update
 RUN apt-get install -fy nginx
 
-# install mysql
-RUN apt-get install -fy mysql-server mysql-client
-
 # install uwsgi; it takes a little while
 RUN pip install uwsgi
-
-# install flask
-RUN pip install flask
 
 # install supervisor
 RUN pip install supervisor
 
-# install flask-sqlalchemy
-RUN pip install sqlalchemy 
-RUN pip install flask-sqlalchemy
+# install virtualenv
+RUN pip install virtualenv
+
+# install mysql-client
+RUN apt-get install -fy mysql-client
 
 # install other softwares for convenience
 # you may customize here as you like
-RUN apt-get install -fy vim curl tmux ipython
+RUN apt-get install -fy vim curl tmux ipython inetutils-ping
 
 ################# config #################
 
 # config python
-RUN echo "export PYTHONPATH=/opt/sites:$PYTHONPATH" >> ~/.bashrc
+# don't do this on production
+RUN echo "export PYTHONPATH=/opt/sites/sphinx:/opt/sites/sphinx/venv/lib/python2.7/site-packages:$PYTHONPATH" >> ~/.bashrc
 
 # config nginx
 RUN mkdir -p /opt/sites
@@ -55,3 +54,4 @@ COPY ./supervisord.d /etc/supervisord.d
 # config customized softwares
 # config vim
 COPY ./vimrc.local /etc/vim/vimrc.local
+COPY ./tmux.conf /etc/tmux.conf

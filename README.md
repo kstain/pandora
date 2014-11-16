@@ -58,6 +58,20 @@ Use putty, Xshell whatever and connect to 127.0.0.1 on port 2022.
 
 If the auto-mount is successful, you will see User folder in root dir, i.e. /Users, mounted. ___NOTE: For whatever workplace you mounted as `home`, it would mount on boot2docker as `/Users`___
 
+### Fix symbolic link issue in VirtualBox
+__For Mac users__:
+
+```
+VBoxManage setextradata VM_NAME VBoxInternal2/SharedFoldersEnableSymlinksCreate/SHARE_NAME 1
+```
+__For Windows users__:
+
+```
+VBoxManage.exe setextradata VM_NAME VBoxInternal2/SharedFoldersEnableSymlinksCreate/SHARE_NAME 1
+```
+where VM_NAME is the name of your virtual machine (e.g Ubuntu) and SHARE_NAME the name of your shared directory (without the "sf_" prefix).
+
+___!!! You must restart vm after setting this !!!___
 
 ### Build Image
 Look into `build.sh`. You may modify `username` and `image` as you like.
