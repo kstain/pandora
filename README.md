@@ -161,6 +161,19 @@ If you receive "Is a directory", then it's success.
 If not, please go back and check everything again, carefully.
 
 ## 4. Test
+
+### 4.1 Create Tables
+___ONLY DO THIS ONCE, OTHERWISE THE CREATED DATA WILL BE WIPED.___ Ensure you are still `explore`ing.
+
+```
+python /opt/sites/sphinx/app/manage.py shell
+>>>	db.drop_all()
+>>> db.create_all()
+```
+Exit the python shell after doing this.
+
+### 4.2 Run Server
+
 Run the server by `serve.sh`, open your browser, and go to http://localhost:9090/test/ping . If you see "pong", everything is done!
 
 ```
