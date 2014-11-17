@@ -55,3 +55,5 @@ COPY ./supervisord.d /etc/supervisord.d
 # config vim
 COPY ./vimrc.local /etc/vim/vimrc.local
 COPY ./tmux.conf /etc/tmux.conf
+
+ENV MODE dev
